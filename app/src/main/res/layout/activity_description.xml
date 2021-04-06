@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- это макет для портретной ориентации-->
-<!-- в портретной ориентации у activity только один фрагмент -->
+<!--Подробное содержание заметки-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/cities"
-        android:name="com.shumikhin.junnotes.ListNotesFragment"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

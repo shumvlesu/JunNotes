@@ -1,12 +1,21 @@
 package com.shumikhin.junnotes;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.Date;
 
-class Notes implements Parcelable{
+class Notes implements Parcelable {
     private int noteIndex;
     private String titleNote;
+
+    public String getDescriptionNote() {
+        return descriptionNote;
+    }
+
+    public void setDescriptionNote(String descriptionNote) {
+        this.descriptionNote = descriptionNote;
+    }
+
     private String descriptionNote;
     private Date dateNote;
 
@@ -48,4 +57,5 @@ class Notes implements Parcelable{
         parcel.writeString(descriptionNote);
         parcel.writeSerializable(dateNote);
     }
+
 }
