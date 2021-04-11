@@ -6,4 +6,6 @@
     <string name="home">Главная</string>
     <string name="settings">Настройки</string>
     <string name="shared">Поделиться</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

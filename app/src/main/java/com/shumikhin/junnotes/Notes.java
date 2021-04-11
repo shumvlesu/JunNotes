@@ -2,6 +2,7 @@ package com.shumikhin.junnotes;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.Date;
 
 class Notes implements Parcelable {
