@@ -12,9 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Date;
+import java.util.List;
 
 public class ListNotesFragment extends Fragment {
 
@@ -26,14 +28,16 @@ public class ListNotesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list_notes, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_notes, container, false);
+        //setHasOptionsMenu(true);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Определение, можно ли будет расположить рядом герб в другом фрагменте
-        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        // Определение, можно ли будет расположить рядом подробное описание в другом фрагменте
+        //isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
         initView(view);
     }
@@ -85,22 +89,19 @@ public class ListNotesFragment extends Fragment {
     }
 
     private void showDescription(Notes currentNote) {
-        if (isLandscape) {
-            //showLandCoatOfArms(index);
-            showLandDescription(currentNote);
-        } else {
+//        if (isLandscape) {
+//            //showLandCoatOfArms(index);
+//            showLandDescription(currentNote);
+//        } else {
             //showPortCoatOfArms(index);
             showPortDescription(currentNote);
-        }
+//        }
     }
 
     private void showPortDescription(Notes currentNote) {
-        // Откроем вторую activity
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), DescriptionActivity.class);
-        // и передадим туда параметры
-        intent.putExtra(DescriptionFragment.NOTE_INDEX, currentNote);
-        startActivity(intent);
+        //DescriptionActivity по архитектуре одного активити больше не требуется
+        DescriptionFragment detail = DescriptionFragment.newInstance(currentNote);
+        MainActivity.addFragment(getActivity().getSupportFragmentManager(), detail);
     }
 
     @Override
@@ -118,24 +119,24 @@ public class ListNotesFragment extends Fragment {
 
 
         // Если можно показать описание рядом, то рисуем рядом
-        if (isLandscape) {
-            //showLandCoatOfArms(currentPosition);
-            showLandDescription(currentNote);
-        }
+//        if (isLandscape) {
+//            //showLandCoatOfArms(currentPosition);
+//            showLandDescription(currentNote);
+//        }
     }
 
     // Показать описание заметки в ландшафтной ориентации
-    private void showLandDescription(Notes currentNote) {
-
-        DescriptionFragment detail = DescriptionFragment.newInstance(currentNote);
-
-        // Выполняем транзакцию по замене фрагмента
-        requireActivity().getSupportFragmentManager() //
-                .beginTransaction() //фрагмент меняется в транзакции
-                .replace(R.id.description, detail) // замена фрагмента
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE) //тип анимации замены транзакции
-                .commit();
-    }
+//    private void showLandDescription(Notes currentNote) {
+//
+//        DescriptionFragment detail = DescriptionFragment.newInstance(currentNote);
+//
+//        // Выполняем транзакцию по замене фрагмента
+//        requireActivity().getSupportFragmentManager() //
+//                .beginTransaction() //фрагмент меняется в транзакции
+//                .replace(R.id.description, detail) // замена фрагмента
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE) //тип анимации замены транзакции
+//                .commit();
+//    }
 
     // Сохраним текущую позицию (вызывается перед выходом из фрагмента)
     @Override
