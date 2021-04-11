@@ -6,5 +6,5 @@
         android:icon="@drawable/share"
         android:orderInCategory="30"
         android:title="@string/shared"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>
