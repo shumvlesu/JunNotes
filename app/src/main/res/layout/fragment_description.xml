@@ -3,14 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     android:orientation="vertical"
-    android:background="@color/purple_200"
-    tools:context=".DescriptionFragment">
+    tools:context=".ui.DescriptionFragment">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="30sp" />
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="Блалалала Blalalala" />
+
 </LinearLayout>

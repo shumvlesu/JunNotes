@@ -1,0 +1,14 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <size android:height="12dp" />
+    <solid android:color="@color/cardview_light_background" />
+
+    <gradient
+        android:angle="135"
+        android:centerColor="#D30006"
+        android:endColor="#B00020"
+        android:startColor="#D30006"
+        android:type="linear" />
+</shape>
+

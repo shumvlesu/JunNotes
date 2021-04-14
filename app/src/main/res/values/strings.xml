@@ -8,4 +8,7 @@
     <string name="shared">Поделиться</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
 </resources>

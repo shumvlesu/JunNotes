@@ -1,4 +1,4 @@
-package com.shumikhin.junnotes;
+package com.shumikhin.junnotes.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,14 +13,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.shumikhin.junnotes.R;
+import com.shumikhin.junnotes.data.NotesData;
+
 public class DescriptionFragment extends Fragment {
 
 
     public static final String NOTE_INDEX = "noteIndex";
-    private Notes note;
+    private NotesData note;
 
 
-    public static DescriptionFragment newInstance(Notes note) {
+    public static DescriptionFragment newInstance(NotesData note) {
         DescriptionFragment fragment = new DescriptionFragment();
         Bundle args = new Bundle();
         args.putParcelable(NOTE_INDEX, note);
