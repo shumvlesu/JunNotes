@@ -14,6 +14,7 @@
         android:layout_margin="4dp"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:fontFamily="@font/inter_bold_italic"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="Блалалала Blalalala" />
