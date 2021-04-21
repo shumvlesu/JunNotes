@@ -22,6 +22,7 @@ public class NotesData implements Parcelable {
         titleNote = in.readString();
         descriptionNote = in.readString();
         dateNote = (java.util.Date) in.readSerializable();
+        //dateNote = new Date(in.readLong());
     }
 
     public static final Creator<NotesData> CREATOR = new Creator<NotesData>() {
@@ -56,9 +57,10 @@ public class NotesData implements Parcelable {
         return titleNote;
     }
 
-    public String getDateNote() {
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("E dd.MM.yyyy 'Время:' hh:mm:ss");
-        return String.valueOf(formatForDateNow.format(dateNote));
+    public Date getDateNote() {
+        //SimpleDateFormat formatForDateNow = new SimpleDateFormat("E dd.MM.yyyy 'Время:' hh:mm:ss");
+        //return String.valueOf(formatForDateNow.format(dateNote));
+        return dateNote;
     }
 
 }

@@ -11,11 +11,11 @@ import java.util.List;
 public class NotesSourceImpl implements NotesSource {
 
     private List<NotesData> dataSource; //этот массив объектов будет загружаться в наш ресайклвью
+
     private Resources resources; // ресурсы приложения
 
     public NotesSourceImpl(Resources resources) {
         this.dataSource = new ArrayList<>(9);
-        ;
         this.resources = resources;
     }
 
@@ -37,9 +37,30 @@ public class NotesSourceImpl implements NotesSource {
         return dataSource.get(position);
     }
 
-    //
+    //размер массива данных, нужен для адаптера
     @Override
     public int size() {
         return dataSource.size();
     }
+
+    @Override
+    public void deleteNoteData(int position) {
+        dataSource.remove(position);
+    }
+
+    @Override
+    public void updateNoteData(int position, NotesData notesData) {
+        dataSource.set(position, notesData);
+    }
+
+    @Override
+    public void addNoteData(NotesData notesData) {
+        dataSource.add(notesData);
+    }
+
+    @Override
+    public void clearNoteData() {
+        dataSource.clear();
+    }
+
 }

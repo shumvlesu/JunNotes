@@ -11,4 +11,8 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="date">Date</string>
+    <string name="add">Добавить</string>
+    <string name="clear">Очистить список</string>
+    <string name="update">Изменить</string>
+    <string name="delete">Удалить</string>
 </resources>
