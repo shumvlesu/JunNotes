@@ -3,7 +3,6 @@ package com.shumikhin.junnotes.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NotesData implements Parcelable {

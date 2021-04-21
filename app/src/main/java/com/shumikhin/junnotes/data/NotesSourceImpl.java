@@ -11,7 +11,6 @@ import java.util.List;
 public class NotesSourceImpl implements NotesSource {
 
     private List<NotesData> dataSource; //этот массив объектов будет загружаться в наш ресайклвью
-
     private Resources resources; // ресурсы приложения
 
     public NotesSourceImpl(Resources resources) {

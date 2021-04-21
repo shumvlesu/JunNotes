@@ -1,5 +1,6 @@
 package com.shumikhin.junnotes.ui;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -19,12 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shumikhin.junnotes.MainActivity;
+import com.shumikhin.junnotes.Navigation;
 import com.shumikhin.junnotes.R;
 import com.shumikhin.junnotes.data.NotesData;
 import com.shumikhin.junnotes.data.NotesSource;
 import com.shumikhin.junnotes.data.NotesSourceImpl;
-
-import java.util.Date;
+import com.shumikhin.junnotes.observe.Observer;
+import com.shumikhin.junnotes.observe.Publisher;
 
 public class ListNotesFragment extends Fragment {
 
@@ -35,7 +37,27 @@ public class ListNotesFragment extends Fragment {
     private NotesSource data;
     private ListNotesAdapter adapter;
     private RecyclerView recyclerView;
+    private Navigation navigation;
+    private Publisher publisher;
+    // признак, что при повторном открытии фрагмента
+    // (возврате из фрагмента, добавляющего запись)
+    // надо прыгнуть на последнюю запись
     private boolean moveToLastPosition;
+
+
+    public static ListNotesFragment newInstance() {
+        return new ListNotesFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Получим источник данных для списка
+        // Поскольку onCreateView запускается каждый раз
+        // при возврате в фрагмент, данные надо создавать один раз
+        data = new NotesSourceImpl(getResources()).init();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +67,7 @@ public class ListNotesFragment extends Fragment {
         //RecyclerView recyclerView = view.findViewById(R.id.recycler_view_lines);
 
         // Получим источник данных для списка
-        data = new NotesSourceImpl(getResources()).init();
+        //data = new NotesSourceImpl(getResources()).init();
 
         initView(view);
 
@@ -55,11 +77,26 @@ public class ListNotesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        MainActivity activity = (MainActivity) context;
+        navigation = activity.getNavigation();
+        publisher = activity.getPublisher();
+    }
+
+    @Override
+    public void onDetach() {
+        navigation = null;
+        publisher = null;
+        super.onDetach();
+    }
+
     private void initView(View view) {
         //ищем наш ресайкл вью у фрагмента
         recyclerView = view.findViewById(R.id.recycler_view_lines);
         // Получим источник данных для списка
-        data = new NotesSourceImpl(getResources()).init();
+        //data = new NotesSourceImpl(getResources()).init();
         initRecyclerView();
     }
 
@@ -104,9 +141,14 @@ public class ListNotesFragment extends Fragment {
         adapter.SetOnItemClickListener(new ListNotesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
                 showDescription(data.getNotesData(position));
-
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateNoteData(NotesData cardData) {
+                        data.updateNoteData(position, cardData);
+                        adapter.notifyItemChanged(position);
+                    }
+                });
             }
         });
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -114,8 +156,7 @@ public class ListNotesFragment extends Fragment {
 
 
     private void showDescription(NotesData currentNote) {
-        DescriptionFragment detail = DescriptionFragment.newInstance(currentNote);
-        MainActivity.addFragment(getActivity().getSupportFragmentManager(), detail);
+        navigation.addFragment(DescriptionFragment.newInstance(currentNote), true);
     }
 
     @Override
@@ -149,9 +190,18 @@ public class ListNotesFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                data.addNoteData(new NotesData("Заголовок " + data.size(), "Описание " + data.size(), new Date()));
-                adapter.notifyItemInserted(data.size() - 1);
-                recyclerView.smoothScrollToPosition(data.size() - 1);
+                navigation.addFragment(DescriptionFragment.newInstance(), true);
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateNoteData(NotesData cardData) {
+                        data.addNoteData(cardData);
+                        adapter.notifyItemInserted(data.size() - 1);
+                        // это сигнал, чтобы вызванный метод onCreateView
+                        // перепрыгнул на конец списка
+                        moveToLastPosition = true;
+                    }
+                });
+
                 return true;
             case R.id.action_clear:
                 data.clearNoteData();
@@ -160,7 +210,6 @@ public class ListNotesFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
@@ -174,9 +223,14 @@ public class ListNotesFragment extends Fragment {
         int position = adapter.getMenuPosition();
         switch (item.getItemId()) {
             case R.id.action_update:
-                data.updateNoteData(position,
-                        new NotesData("Новая запись " + position, data.getNotesData(position).getDescriptionNote(), new Date()));
-                adapter.notifyItemChanged(position);
+                navigation.addFragment(DescriptionFragment.newInstance(data.getNotesData(position)), true);
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateNoteData(NotesData cardData) {
+                        data.updateNoteData(position, cardData);
+                        adapter.notifyItemChanged(position);
+                    }
+                });
                 return true;
             case R.id.action_delete:
                 data.deleteNoteData(position);
