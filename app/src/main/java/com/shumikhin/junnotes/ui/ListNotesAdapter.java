@@ -26,7 +26,6 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     private int menuPosition;
 
 
-
     public ListNotesAdapter(NotesSource dataSource, Fragment fragment) {
         this.dataSource = dataSource;
         this.fragment = fragment;
@@ -58,6 +57,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
 
         private final TextView description;
         private final TextView date;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
@@ -86,7 +86,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
         }
 
         private void registerContextMenu(@NonNull View itemView) {
-            if (fragment != null){
+            if (fragment != null) {
                 itemView.setOnLongClickListener(v -> {
                     menuPosition = getLayoutPosition();
                     return false;
@@ -110,6 +110,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     public void SetOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
+
     // Интерфейс для обработки нажатий, как в ListView
     public interface OnItemClickListener {
 

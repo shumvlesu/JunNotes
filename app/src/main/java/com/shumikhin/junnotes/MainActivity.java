@@ -11,27 +11,25 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.shumikhin.junnotes.observe.Publisher;
 import com.shumikhin.junnotes.ui.ListNotesFragment;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
+
+    private Navigation navigation;
+    private Publisher publisher = new Publisher();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //1. Создайте список ваших заметок.
-        //2. Создайте карточку для элемента списка.
-        //3. Класс данных, созданный на шестом уроке, используйте для заполнения карточки списка.
-        //4. * Создайте фрагмент для редактирования данных в конкретной карточке.
-        // Этот фрагмент пока можно вызвать через основное меню.
+        //1. Сделайте фрагмент добавления и редактирования данных, если вы ещё не сделали его.
+        //2. Сделайте навигацию между фрагментами, также организуйте обмен данными между фрагментами.
+        //3. Создайте контекстное меню для изменения и удаления заметок.
+        //4. * Изучите, каким образом можно вызывать DatePicker в виде диалогового окна. Создайте текстовое поле, при нажатии на которое вызывалось бы диалоговое окно с DatePicker.
 
         Toolbar toolbar = initToolbar();
         initDrawer(toolbar);
@@ -42,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         return toolbar;
     }
 
@@ -112,37 +112,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListNotes() {
-        addFragment(getSupportFragmentManager(), new ListNotesFragment());
+        navigation = new Navigation(getSupportFragmentManager());
+        getNavigation().addFragment(ListNotesFragment.newInstance(), false);
     }
 
-    public static void addFragment(FragmentManager fragmentManager, Fragment fragment) {
-        // Открыть транзакцию
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // Удалить видимый фрагмент
-        Fragment fragmentToRemove = getVisibleFragment(fragmentManager);
-        if (fragmentToRemove != null) {
-            fragmentTransaction.remove(fragmentToRemove);
-        }
-        // Зменить фрагмент
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        // Добавить транзакцию в бэкстек
-        fragmentTransaction.addToBackStack(null);
-        // Закрыть транзакцию
-        fragmentTransaction.commit();
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
-    //getVisibleFragment получение видимого фрагмента.
-    // Пробегается по стеку фрагментов и тот который сверху стека тот фрагмент и видимый
-    public static Fragment getVisibleFragment(FragmentManager fragmentManager) {
-        List<Fragment> fragments = fragmentManager.getFragments();
-        int countFragments = fragments.size();
-        //от последнего к первому в обратном порядке
-        for (int i = countFragments - 1; i >= 0; i--) {
-            Fragment fragment = fragments.get(i);
-            if (fragment.isVisible())
-                return fragment;
-        }
-        return null;
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
     }
 
 }
