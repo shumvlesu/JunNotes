@@ -18,7 +18,7 @@ public class NotesSourceImpl implements NotesSource {
         this.resources = resources;
     }
 
-    public NotesSourceImpl init() {
+    public NotesSource init(NotesSourceResponse notesSourceResponse) {
         // строки заголовков записок из ресурсов
         String[] titles = resources.getStringArray(R.array.title);
         // строки описаний из ресурсов
@@ -28,6 +28,12 @@ public class NotesSourceImpl implements NotesSource {
         for (int i = 0; i < descriptions.length; i++) {
             dataSource.add(new NotesData(titles[i], descriptions[i], new Date()));
         }
+
+        if (notesSourceResponse != null){
+            notesSourceResponse.initialized(this);
+        }
+
+
         return this;
     }
 

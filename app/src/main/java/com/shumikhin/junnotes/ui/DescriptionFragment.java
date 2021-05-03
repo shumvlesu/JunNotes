@@ -106,6 +106,14 @@ public class DescriptionFragment extends Fragment {
         String title = this.title.getText().toString();
         String description = this.description.getText().toString();
         Date date = getDateFromDatePicker();
+
+        if (noteData != null) {
+            NotesData answer;
+            answer = new NotesData(title, description, date);
+            answer.setId(noteData.getId());
+            return answer;
+        }
+
         return new NotesData(title, description, date);
     }
 

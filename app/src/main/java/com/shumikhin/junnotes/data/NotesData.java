@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class NotesData implements Parcelable {
 
+    private String id; // идентификатор
     private String titleNote;
     private String descriptionNote;
     private Date dateNote;
@@ -60,6 +61,13 @@ public class NotesData implements Parcelable {
         //SimpleDateFormat formatForDateNow = new SimpleDateFormat("E dd.MM.yyyy 'Время:' hh:mm:ss");
         //return String.valueOf(formatForDateNow.format(dateNote));
         return dateNote;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

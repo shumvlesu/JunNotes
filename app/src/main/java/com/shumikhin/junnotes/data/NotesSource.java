@@ -1,8 +1,11 @@
 package com.shumikhin.junnotes.data;
 
 public interface NotesSource {
+
     NotesData getNotesData(int position);
-    
+
+    NotesSource init(NotesSourceResponse notesSourceResponse);
+
     //размер массива
     int size();
 
@@ -14,4 +17,5 @@ public interface NotesSource {
     void addNoteData(NotesData notesData);
 
     void clearNoteData();
+
 }
