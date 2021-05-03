@@ -2,7 +2,7 @@ package com.shumikhin.junnotes.observe;
 
 import com.shumikhin.junnotes.data.NotesData;
 
-public interface Observer {
+public interface NotesDataObserver {
     void updateNoteData(NotesData notesData);
 }
 

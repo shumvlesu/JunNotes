@@ -19,7 +19,7 @@ import com.shumikhin.junnotes.ui.ListNotesFragment;
 public class MainActivity extends AppCompatActivity {
 
     private Navigation navigation;
-    private Publisher publisher = new Publisher();
+    private final Publisher publisher = new Publisher();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

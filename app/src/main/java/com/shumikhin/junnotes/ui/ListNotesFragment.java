@@ -26,7 +26,7 @@ import com.shumikhin.junnotes.data.NotesData;
 import com.shumikhin.junnotes.data.NotesSource;
 import com.shumikhin.junnotes.data.NotesSourceFirebaseImpl;
 import com.shumikhin.junnotes.data.NotesSourceResponse;
-import com.shumikhin.junnotes.observe.Observer;
+import com.shumikhin.junnotes.observe.NotesDataObserver;
 import com.shumikhin.junnotes.observe.Publisher;
 
 public class ListNotesFragment extends Fragment {
@@ -120,7 +120,6 @@ public class ListNotesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         //Анимация recyclerView
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
         // Установим анимацию. А чтобы было хорошо заметно, сделаем анимацию долгой
         DefaultItemAnimator animator = new DefaultItemAnimator();
         //скорость анимации при добавлении
@@ -128,20 +127,21 @@ public class ListNotesFragment extends Fragment {
         //скорость анимации при удалении
         animator.setRemoveDuration(MY_DEFAULT_DURATION);
         recyclerView.setItemAnimator(animator);
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
         if (moveToFirstPosition && data.size() > 0) {
             recyclerView.scrollToPosition(0);
             moveToFirstPosition = false;
         }
 
-        //Область текста ответственная на обработку нажатий+++++++
+
+        //Область текста ответственная на обработку нажатий
         // Установим слушателя
         adapter.SetOnItemClickListener(new ListNotesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 showDescription(data.getNotesData(position));
-                publisher.subscribe(new Observer() {
+                publisher.subscribe(new NotesDataObserver() {
                     @Override
                     public void updateNoteData(NotesData cardData) {
                         data.updateNoteData(position, cardData);
@@ -150,7 +150,6 @@ public class ListNotesFragment extends Fragment {
                 });
             }
         });
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 
 
@@ -209,7 +208,7 @@ public class ListNotesFragment extends Fragment {
         switch (menuItemId) {
             case R.id.action_add:
                 navigation.addFragment(DescriptionFragment.newInstance(), true);
-                publisher.subscribe(new Observer() {
+                publisher.subscribe(new NotesDataObserver() {
                     @Override
                     public void updateNoteData(NotesData noteData) {
                         data.addNoteData(noteData);
@@ -223,7 +222,7 @@ public class ListNotesFragment extends Fragment {
             case R.id.action_update:
                 final int updatePosition = adapter.getMenuPosition();
                 navigation.addFragment(DescriptionFragment.newInstance(data.getNotesData(updatePosition)), true);
-                publisher.subscribe(new Observer() {
+                publisher.subscribe(new NotesDataObserver() {
                     @Override
                     public void updateNoteData(NotesData noteData) {
                         data.updateNoteData(updatePosition, noteData);
@@ -243,6 +242,5 @@ public class ListNotesFragment extends Fragment {
         }
         return false;
     }
-
 
 }

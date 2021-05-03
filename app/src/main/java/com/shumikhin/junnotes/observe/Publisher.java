@@ -11,25 +11,25 @@ import java.util.List;
 
 public class Publisher {
 
-    private List<Observer> observers; // Все обозреватели
+    private List<NotesDataObserver> observers; // Все обозреватели
 
     public Publisher() {
         observers = new ArrayList<>();
     }
 
     // Подписать
-    public void subscribe(Observer observer) {
+    public void subscribe(NotesDataObserver observer) {
         observers.add(observer);
     }
 
     // Отписать
-    public void unsubscribe(Observer observer) {
+    public void unsubscribe(NotesDataObserver observer) {
         observers.remove(observer);
     }
 
     // Разослать событие
     public void notifySingle(NotesData notesData) {
-        for (Observer observer : observers) {
+        for (NotesDataObserver observer : observers) {
             observer.updateNoteData(notesData);
             unsubscribe(observer);
         }

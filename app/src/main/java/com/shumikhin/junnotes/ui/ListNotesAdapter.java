@@ -30,7 +30,7 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
         this.fragment = fragment;
     }
 
-    public void setDataSource(NotesSource dataSource){
+    public void setDataSource(NotesSource dataSource) {
         this.dataSource = dataSource;
         notifyDataSetChanged();
     }
@@ -58,7 +58,6 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
-
         private final TextView description;
         private final TextView date;
 
@@ -106,8 +105,8 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
             date.setText(String.valueOf(formatForDateNow.format(notesData.getDateNote())));
         }
 
-
     }
+
     //Область текста ответственная на обработку нажатий+++++++
     // Сеттер слушателя нажатий
     public void SetOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -116,10 +115,9 @@ public class ListNotesAdapter extends RecyclerView.Adapter<ListNotesAdapter.View
 
     // Интерфейс для обработки нажатий, как в ListView
     public interface OnItemClickListener {
-
         void onItemClick(View view, int position);
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
     public int getMenuPosition() {
         return menuPosition;
