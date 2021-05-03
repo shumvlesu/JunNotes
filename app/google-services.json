@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "648644934824",
+    "project_id": "junnotes-79ea5",
+    "storage_bucket": "junnotes-79ea5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648644934824:android:45cad562b65b6bab5b569d",
+        "android_client_info": {
+          "package_name": "com.shumikhin.junnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648644934824-15laaofdnp9pe2g5bdj3ut83clodpbvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBftIggY5vVP50cEhDPldYRYIa9hSYX510"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648644934824-15laaofdnp9pe2g5bdj3ut83clodpbvt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
