@@ -16,5 +16,7 @@
     <string name="update">Изменить</string>
     <string name="delete">Удалить</string>
     <string name="heading">Удалить запись?</string>
-
+    <string name="buttonDeleteNoteYes">Удалить запись</string>
+    <string name="buttonDeleteNoteNo">Отмена</string>
+    <string name="cancel_deletion">Отмена удаления</string>
 </resources>
