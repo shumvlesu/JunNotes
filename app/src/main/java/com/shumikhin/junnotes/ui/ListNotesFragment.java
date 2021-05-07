@@ -236,9 +236,7 @@ public class ListNotesFragment extends Fragment {
                 });
                 return true;
             case R.id.action_delete:
-                int deletePosition = adapter.getMenuPosition();
-                data.deleteNoteData(deletePosition);
-                adapter.notifyItemRemoved(deletePosition);
+                deleteNote();
                 return true;
             case R.id.action_clear:
                 data.clearNoteData();
@@ -246,6 +244,25 @@ public class ListNotesFragment extends Fragment {
                 return true;
         }
         return false;
+    }
+
+    private void deleteNote() {
+        new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                .setTitle(R.string.heading)
+                .setIcon(R.drawable.cat)
+                //.setMessage(R.string.press_button)
+                .setPositiveButton(R.string.buttonDeleteNoteYes,
+                        (DialogInterface.OnClickListener) (dialog, id) -> {
+                            int deletePosition = adapter.getMenuPosition();
+                            data.deleteNoteData(deletePosition);
+                            adapter.notifyItemRemoved(deletePosition);
+                        })
+                .setNegativeButton(R.string.buttonDeleteNoteNo, null)
+                //.setNegativeButton(R.string.buttonDeleteNoteNo,
+                //        (dialog, id) -> Toast.makeText(getContext(), R.string.cancel_deletion, Toast.LENGTH_SHORT).show())
+                //.setNeutralButton(R.string.buttonDeleteNoteNo, null)
+                .create()
+                .show();
     }
 
 }
