@@ -1,6 +1,7 @@
 package com.shumikhin.junnotes.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -10,9 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,6 +31,8 @@ import com.shumikhin.junnotes.data.NotesSourceFirebaseImpl;
 import com.shumikhin.junnotes.data.NotesSourceResponse;
 import com.shumikhin.junnotes.observe.NotesDataObserver;
 import com.shumikhin.junnotes.observe.Publisher;
+
+import java.util.Objects;
 
 public class ListNotesFragment extends Fragment {
 
