@@ -1,29 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<soup.neumorphism.NeumorphCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/praimary">
-
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:scaleType="fitStart"
+    android:src="@drawable/ic_launcher_foreground"
+    tools:src="@drawable/ic_launcher_foreground">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <soup.neumorphism.NeumorphImageButton
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="7dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/ic_launcher_foreground"
-            tools:src="@drawable/ic_launcher_foreground"
-            >
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal">
 
-        </soup.neumorphism.NeumorphImageButton>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="2"
+                android:fontFamily="@font/inter_bold_italic"
+                android:gravity="start"
+                android:text="@string/title"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="@dimen/textTitle"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/date"
+                android:textColor="#FFF8E1"
+                android:textSize="@dimen/textDescription"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inter_black"
+            android:text="@string/description"
+            android:textColor="#FFF8E1"
+            android:textSize="@dimen/textDescription"
+            android:textStyle="bold"
+            tools:text="fffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffff" />
     </LinearLayout>
-</ScrollView>
+
+
+    <soup.neumorphism.NeumorphImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_launcher_foreground"
+        tools:src="@drawable/ic_launcher_foreground" />
+
+
+</soup.neumorphism.NeumorphCardView>
 

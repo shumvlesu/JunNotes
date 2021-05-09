@@ -50,7 +50,6 @@ public class ListNotesFragment extends Fragment {
     // надо прыгнуть на первую запись
     private boolean moveToFirstPosition;
 
-
     public static ListNotesFragment newInstance() {
         return new ListNotesFragment();
     }
